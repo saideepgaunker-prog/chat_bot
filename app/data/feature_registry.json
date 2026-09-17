@@ -1,0 +1,142 @@
+[
+  {
+    "id": "feat_repos_list",
+    "name": "Repositories Explorer",
+    "route_pattern": "/repos",
+    "description": "View, search, filter, and manage all source code repositories, health scores, and connected agents.",
+    "keywords": ["repositories", "repos", "projects", "codebases", "repo list", "git", "overview"],
+    "category": "Repositories",
+    "permission_required": "developer",
+    "breadcrumbs": ["Repositories", "Explorer"]
+  },
+  {
+    "id": "feat_repo_details",
+    "name": "Repository Overview",
+    "route_pattern": "/repos/:repoId",
+    "description": "Comprehensive dashboard for a specific repository showing active branches, commit activity, AI agent status, and recent deployments.",
+    "keywords": ["repository overview", "repo dashboard", "repo status", "project home"],
+    "category": "Repositories",
+    "permission_required": "developer",
+    "breadcrumbs": ["Repositories", ":repoId", "Overview"]
+  },
+  {
+    "id": "feat_branch_protection",
+    "name": "Branch Protection Rules",
+    "route_pattern": "/repos/:repoId/settings/branches",
+    "description": "Configure branch protection policies, required reviewer approvals, AI agent status checks, auto-merge conditions, and force-push locks.",
+    "keywords": ["branch protection", "branch rules", "require approval", "protect main", "merge requirements", "branch policy", "force push"],
+    "category": "Settings",
+    "permission_required": "maintainer",
+    "breadcrumbs": ["Repositories", ":repoId", "Settings", "Branch Rules"]
+  },
+  {
+    "id": "feat_preview_environments",
+    "name": "Preview Environments",
+    "route_pattern": "/repos/:repoId/deployments/previews",
+    "description": "Manage ephemeral preview environments spun up automatically for Pull Requests, view live URLs, logs, and tear-down triggers.",
+    "keywords": ["preview environments", "ephemeral envs", "pr previews", "staging preview", "staging urls", "preview deployments"],
+    "category": "Deployments",
+    "permission_required": "developer",
+    "breadcrumbs": ["Repositories", ":repoId", "Deployments", "Preview Environments"]
+  },
+  {
+    "id": "feat_webhooks_slack",
+    "name": "Slack & Webhook Integrations",
+    "route_pattern": "/settings/integrations/webhooks/slack",
+    "description": "Configure Slack notification channels, incoming webhook URLs, event subscriptions for build failures, security alerts, and agent comments.",
+    "keywords": ["slack", "slack notifications", "webhooks", "notifications", "alerts", "channel alerts", "build failure notifications"],
+    "category": "Integrations",
+    "permission_required": "admin",
+    "breadcrumbs": ["Settings", "Integrations", "Webhooks", "Slack"]
+  },
+  {
+    "id": "feat_agent_orchestration",
+    "name": "Agent Orchestration Config",
+    "route_pattern": "/agents/orchestration/config",
+    "description": "Configure multi-agent coordination, agent execution schedules, concurrency limits, auto-trigger policies on commit/PR, and agent model selection.",
+    "keywords": ["agent orchestration", "ai agents", "agent schedule", "agent config", "concurrency", "multi-agent coordination", "orchestrator"],
+    "category": "Agents",
+    "permission_required": "maintainer",
+    "breadcrumbs": ["Control Tower", "Agents", "Orchestration Config"]
+  },
+  {
+    "id": "feat_rollback_policies",
+    "name": "Auto-Rollback Thresholds & Policies",
+    "route_pattern": "/pipelines/rollback-policies",
+    "description": "Configure automated rollback thresholds based on error rates, latency spikes, health check failures, and canary degradation.",
+    "keywords": ["rollback", "auto-rollback", "rollback threshold", "canary rollback", "deployment failure recovery", "error threshold"],
+    "category": "Pipelines",
+    "permission_required": "maintainer",
+    "breadcrumbs": ["Pipelines", "Reliability", "Auto-Rollback Policies"]
+  },
+  {
+    "id": "feat_ci_builds",
+    "name": "CI/CD Build & Test Pipelines",
+    "route_pattern": "/repos/:repoId/pipelines/builds",
+    "description": "Real-time build logs, test execution matrices, artifact storage, and pipeline step latency analysis.",
+    "keywords": ["ci/cd", "builds", "pipelines", "test runs", "unit tests", "build logs", "test matrix"],
+    "category": "Pipelines",
+    "permission_required": "developer",
+    "breadcrumbs": ["Repositories", ":repoId", "Pipelines", "Builds & Tests"]
+  },
+  {
+    "id": "feat_code_reviewer_agent",
+    "name": "AI Code Reviewer Agent",
+    "route_pattern": "/repos/:repoId/agents/code-reviewer",
+    "description": "Inspect automated code review comments, suggested refactors, syntax/lint violations, and approve or reject agent suggestions.",
+    "keywords": ["code review agent", "pr review", "automated review", "code quality review", "ai reviewer", "pr comments"],
+    "category": "Agents",
+    "permission_required": "developer",
+    "breadcrumbs": ["Repositories", ":repoId", "Agents", "Code Reviewer"]
+  },
+  {
+    "id": "feat_security_scans",
+    "name": "Security & Vulnerability Scanner",
+    "route_pattern": "/repos/:repoId/security/scans",
+    "description": "SAST/DAST static security analysis, CVE vulnerability alerts, dependency auditing, and secret leak detection.",
+    "keywords": ["security scan", "vulnerabilities", "cve", "sast", "secret leaks", "dependency alerts", "security agent"],
+    "category": "Security",
+    "permission_required": "developer",
+    "breadcrumbs": ["Repositories", ":repoId", "Security", "Vulnerability Scans"]
+  },
+  {
+    "id": "feat_release_summarizer",
+    "name": "Release Summarizer & Changelog",
+    "route_pattern": "/repos/:repoId/releases/summaries",
+    "description": "AI-generated release notes, changelog compilation across merged PRs, semantic version tagging, and stakeholder digests.",
+    "keywords": ["release summarizer", "changelog", "release notes", "version tags", "deployment summary"],
+    "category": "Releases",
+    "permission_required": "developer",
+    "breadcrumbs": ["Repositories", ":repoId", "Releases", "Summaries"]
+  },
+  {
+    "id": "feat_secrets_vault",
+    "name": "Environment Secrets & Vault",
+    "route_pattern": "/repos/:repoId/settings/secrets",
+    "description": "Manage encrypted environment variables, API tokens, deployment keys, and cloud credentials scoped by environment.",
+    "keywords": ["secrets", "env vars", "api keys", "tokens", "credentials", "vault", "environment variables"],
+    "category": "Settings",
+    "permission_required": "maintainer",
+    "breadcrumbs": ["Repositories", ":repoId", "Settings", "Secrets"]
+  },
+  {
+    "id": "feat_code_health_metrics",
+    "name": "Code Health & Technical Debt",
+    "route_pattern": "/repos/:repoId/metrics/health",
+    "description": "Analyze maintainability index, code complexity, test coverage trends, duplicated code percentage, and technical debt score.",
+    "keywords": ["code health", "tech debt", "complexity", "coverage", "metrics", "maintainability index"],
+    "category": "Metrics",
+    "permission_required": "developer",
+    "breadcrumbs": ["Repositories", ":repoId", "Metrics", "Code Health"]
+  },
+  {
+    "id": "feat_memory_manager",
+    "name": "Assistant Memory Management",
+    "route_pattern": "/settings/assistant/memory",
+    "description": "Inspect, edit, or purge episodic memory facts, preferences, and distilled conversation history stored by the AI assistant.",
+    "keywords": ["memory", "episodic memory", "remembered facts", "preferences", "purge memory", "manage memory"],
+    "category": "Settings",
+    "permission_required": "developer",
+    "breadcrumbs": ["Settings", "AI Assistant", "Memory Management"]
+  }
+]

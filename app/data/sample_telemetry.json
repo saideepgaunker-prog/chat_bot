@@ -1,0 +1,113 @@
+{
+  "repo-payments": {
+    "repo_id": "repo-payments",
+    "name": "Payments Core Microservice",
+    "health_score": 94,
+    "active_branch": "main",
+    "last_deployment": "2026-09-08T22:30:00Z",
+    "agents_summary": {
+      "code_reviewer": {"status": "success", "last_run": "2026-09-08T23:15:00Z", "pending_prs": 1},
+      "ci_cd_orchestrator": {"status": "success", "last_build": "#842", "duration": "3m 12s", "tests_passed": 348, "tests_failed": 0},
+      "security_scanner": {"status": "success", "cve_count": 0, "last_scan": "2026-09-08T21:00:00Z"},
+      "release_summarizer": {"status": "idle", "latest_version": "v2.14.0", "next_release_prs": 4}
+    },
+    "recent_events": [
+      {
+        "id": "evt-101",
+        "repo_id": "repo-payments",
+        "agent_type": "code_reviewer",
+        "status": "success",
+        "summary": "Reviewed PR #142 (Stripe webhook idempotent processing) - Approved with 1 minor suggestion regarding timeout handling.",
+        "details": "Suggested adding ExponentialBackoff wrapper around Stripe webhook handler.",
+        "pr_number": 142,
+        "commit_sha": "a8f9c12",
+        "timestamp": "2026-09-08T23:15:00Z"
+      },
+      {
+        "id": "evt-102",
+        "repo_id": "repo-payments",
+        "agent_type": "ci_cd_orchestrator",
+        "status": "success",
+        "summary": "Build #842 passed all 348 unit/integration tests and deployed successfully to staging preview environment.",
+        "details": "Pipeline latency: 3m 12s. Coverage maintained at 91.4%.",
+        "pr_number": 142,
+        "commit_sha": "a8f9c12",
+        "timestamp": "2026-09-08T23:20:00Z"
+      },
+      {
+        "id": "evt-103",
+        "repo_id": "repo-payments",
+        "agent_type": "security_scanner",
+        "status": "success",
+        "summary": "SAST scan completed with 0 Critical, 0 High vulnerabilities. All dependencies verified.",
+        "details": "Scanned 142 files in 4.2 seconds.",
+        "pr_number": null,
+        "commit_sha": "a8f9c12",
+        "timestamp": "2026-09-08T21:00:00Z"
+      }
+    ]
+  },
+  "core-backend": {
+    "repo_id": "core-backend",
+    "name": "Core Backend API Service",
+    "health_score": 88,
+    "active_branch": "main",
+    "last_deployment": "2026-09-08T18:00:00Z",
+    "agents_summary": {
+      "code_reviewer": {"status": "warning", "last_run": "2026-09-08T22:45:00Z", "pending_prs": 3},
+      "ci_cd_orchestrator": {"status": "failed", "last_build": "#1209", "failed_step": "integration_tests/db_migration"},
+      "security_scanner": {"status": "warning", "cve_count": 1, "severity": "Medium (CVE-2026-1932 in fastjson)"},
+      "release_summarizer": {"status": "success", "latest_version": "v4.2.1"}
+    },
+    "recent_events": [
+      {
+        "id": "evt-201",
+        "repo_id": "core-backend",
+        "agent_type": "ci_cd_orchestrator",
+        "status": "failed",
+        "summary": "Build #1209 failed during db_migration check on PR #310 due to missing rollback script.",
+        "details": "Alembic migration 4f1a2c lacks downgrade() definition. Pipeline aborted before deployment.",
+        "pr_number": 310,
+        "commit_sha": "b2e4d91",
+        "timestamp": "2026-09-08T22:50:00Z"
+      },
+      {
+        "id": "evt-202",
+        "repo_id": "core-backend",
+        "agent_type": "security_scanner",
+        "status": "warning",
+        "summary": "Detected Medium severity CVE-2026-1932 in sub-dependency. Remediation patch available.",
+        "details": "Recommended bumping package version to >= 2.1.0.",
+        "pr_number": null,
+        "commit_sha": "b2e4d91",
+        "timestamp": "2026-09-08T20:10:00Z"
+      }
+    ]
+  },
+  "web-frontend": {
+    "repo_id": "web-frontend",
+    "name": "Web Frontend Next.js Client",
+    "health_score": 96,
+    "active_branch": "main",
+    "last_deployment": "2026-09-08T23:00:00Z",
+    "agents_summary": {
+      "code_reviewer": {"status": "success", "last_run": "2026-09-08T23:05:00Z", "pending_prs": 0},
+      "ci_cd_orchestrator": {"status": "success", "last_build": "#502", "duration": "1m 45s"},
+      "security_scanner": {"status": "success", "cve_count": 0},
+      "release_summarizer": {"status": "success", "latest_version": "v1.8.0"}
+    },
+    "recent_events": [
+      {
+        "id": "evt-301",
+        "repo_id": "web-frontend",
+        "agent_type": "ci_cd_orchestrator",
+        "status": "success",
+        "summary": "Preview environment created at https://preview-pr88.devtower.internal for PR #88 (Navigation UX overhaul).",
+        "details": "Lighthouse score: Performance 98, Accessibility 100.",
+        "pr_number": 88,
+        "commit_sha": "f10a88c",
+        "timestamp": "2026-09-08T23:00:00Z"
+      }
+    ]
+  }
+}

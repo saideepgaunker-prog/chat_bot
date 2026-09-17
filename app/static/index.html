@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Control Tower — AI Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="top-nav">
+      <div class="nav-brand">
+        <div class="brand-badge">⚡ DCT</div>
+        <div class="brand-titles">
+          <h1>Developer Control Tower</h1>
+          <span class="subtext">Context-Aware AI Assistant & Navigation Engine</span>
+        </div>
+      </div>
+      <div class="ambient-controls">
+        <div class="ambient-group">
+          <label>Active Repo:</label>
+          <select id="repo-select">
+            <option value="repo-payments">repo-payments (Health 94%)</option>
+            <option value="core-backend">core-backend (Health 88%)</option>
+            <option value="web-frontend">web-frontend (Health 96%)</option>
+          </select>
+        </div>
+        <div class="ambient-group">
+          <label>Current Route / View:</label>
+          <select id="route-select">
+            <option value="/">/ (Dashboard Overview)</option>
+            <option value="/repos/:repoId/settings/branches">/repos/:repoId/settings/branches (Branch Rules)</option>
+            <option value="/agents/orchestration/config">/agents/orchestration/config (Agent Config)</option>
+            <option value="/pipelines/rollback-policies">/pipelines/rollback-policies (Rollback Policies)</option>
+            <option value="/repos/:repoId/deployments/previews">/repos/:repoId/deployments/previews (Preview Envs)</option>
+            <option value="/settings/integrations/webhooks/slack">/settings/integrations/webhooks/slack (Slack Integrations)</option>
+            <option value="/repos/:repoId/security/scans">/repos/:repoId/security/scans (Security Scans)</option>
+            <option value="/repos/:repoId/metrics/health">/repos/:repoId/metrics/health (Code Health)</option>
+          </select>
+        </div>
+        <button id="toggle-memory-btn" class="btn-secondary">🧠 Manage Memories (<span id="memory-count-badge">0</span>)</button>
+      </div>
+    </header>
+
+    <div class="workspace-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3>Active View Metadata</h3>
+          <div class="context-card">
+            <div class="context-row">
+              <span class="ctx-label">Active Route:</span>
+              <span id="active-route-display" class="ctx-val font-mono">/</span>
+            </div>
+            <div class="context-row">
+              <span class="ctx-label">Target Repo:</span>
+              <span id="active-repo-display" class="ctx-val font-mono">repo-payments</span>
+            </div>
+            <div class="context-row">
+              <span class="ctx-label">User Role:</span>
+              <span class="ctx-val badge-role">Staff Engineer (Maintainer)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="section-header">
+            <h3>Multi-Agent Telemetry</h3>
+            <span class="live-dot" title="Live Agent Feeds"></span>
+          </div>
+          <div id="telemetry-feed" class="telemetry-list">
+            <div class="loading-telemetry">Loading agent streams...</div>
+          </div>
+        </div>
+
+        <div class="sidebar-section quick-prompts">
+          <h3>Quick Scenario Prompts</h3>
+          <button class="quick-btn" data-query="Where do I configure Slack notifications for build failures?">📍 Where can I set up Slack webhooks?</button>
+          <button class="quick-btn" data-query="What does Auto-Rollback Threshold do?">📖 What does Auto-Rollback Threshold do?</button>
+          <button class="quick-btn" data-query="Give me a status update on repo-payments">📊 Status update on repo-payments</button>
+          <button class="quick-btn" data-query="I primarily work on repo-analytics and prefer TypeScript examples.">💾 Remember my repo & TypeScript preference</button>
+          <button class="quick-btn" data-query="How do I write a custom agent hook?">🎯 How do I write a custom agent hook?</button>
+        </div>
+      </aside>
+
+      <main class="chat-container">
+        <div class="chat-header">
+          <div class="chat-header-info">
+            <div class="ai-avatar">🤖</div>
+            <div>
+              <div class="ai-name">TowerBot <span class="badge-online">Active</span></div>
+              <div class="ai-desc">Three-Tier Memory • Hybrid RAG • Multi-Agent Synthesis</div>
+            </div>
+          </div>
+          <div class="chat-actions">
+            <button id="new-session-btn" class="btn-action" title="Consolidate working memory into Episodic Memory">✨ New Session (Consolidate)</button>
+            <button id="clear-chat-btn" class="btn-icon" title="Clear Chat">🗑️</button>
+          </div>
+        </div>
+
+        <div class="ambient-banner">
+          <span class="sensor-icon">📡 Sensor Context:</span>
+          <span class="sensor-pill" id="sensor-route-pill">Route: /</span>
+          <span class="sensor-pill" id="sensor-repo-pill">Repo: repo-payments</span>
+          <span class="sensor-pill">Branch: main</span>
+        </div>
+
+        <div id="messages-container" class="messages-area">
+          <div class="message-turn assistant-turn">
+            <div class="message-avatar">🤖</div>
+            <div class="message-bubble">
+              <p>Welcome to <strong>Developer Control Tower</strong>! I'm your context-aware assistant.</p>
+              <p>I can help you locate features, explain configuration toggles on your current screen, summarize multi-agent telemetry, and remember your preferences across sessions.</p>
+              <div class="suggested-chips">
+                <button class="chip-btn" onclick="sendChip('Where do I configure Slack webhooks?')">Where do I set up Slack?</button>
+                <button class="chip-btn" onclick="sendChip('What does Auto-Rollback Threshold do?')">Explain Auto-Rollback</button>
+                <button class="chip-btn" onclick="sendChip('Give me a status update on repo-payments')">Repo Status</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-wrapper">
+          <form id="chat-form" class="chat-input-form">
+            <textarea
+              id="message-input"
+              rows="1"
+              placeholder="Ask anything (e.g., 'Where are branch protection rules?', 'Status of repo-payments')..."
+              required
+            ></textarea>
+            <button type="submit" id="send-btn" class="btn-send">
+              <span>Send</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+          </form>
+          <div class="input-footer">
+            <span>Powered by Three-Tier Memory (Working + Episodic + Semantic RAG)</span>
+            <span id="session-id-display" class="font-mono">Session: sess-live-01</span>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="memory-drawer" class="drawer-backdrop hidden">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <h2>🧠 Episodic Memory Store</h2>
+          <button id="close-drawer-btn" class="btn-close">&times;</button>
+        </div>
+        <div class="drawer-desc">
+          These distilled facts and developer preferences persist across sessions. You can review, delete, or inspect the importance score and decay factor of each item.
+        </div>
+        <div class="drawer-actions">
+          <button id="purge-all-memories-btn" class="btn-danger">Purge All Memories</button>
+          <button id="refresh-memories-btn" class="btn-secondary">Refresh</button>
+        </div>
+        <div id="memories-list" class="memories-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
