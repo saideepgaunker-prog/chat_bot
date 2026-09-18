@@ -1,18 +1,28 @@
-# Starlette 1.6+ compatibility patch for FastAPI
+# Starlette 0.28.0+ / FastAPI Compatibility Patch
+# Addresses signature changes in Starlette's Router.__init__ where lifespan handlers 
+# (on_startup/on_shutdown) were deprecated or modified, preventing FastAPI initialization errors.
 import starlette.routing
 import fastapi.applications
 
 if hasattr(starlette.routing, "Router"):
+    # Store the original __init__ method reference
     _orig_router_init = starlette.routing.Router.__init__
+    
+    # Define a custom wrapper to gracefully handle legacy on_startup and on_shutdown arguments
     def _patched_router_init(self, *args, on_startup=None, on_shutdown=None, **kwargs):
         self.on_startup = on_startup or []
         self.on_shutdown = on_shutdown or []
         _orig_router_init(self, *args, **kwargs)
+        
+    # Monkey-patch the Starlette Router with the updated signature wrapper
     starlette.routing.Router.__init__ = _patched_router_init
 
+# Fallback for missing FastAPI application attributes in varying versions
 if not hasattr(fastapi.applications.FastAPI, "max_body_size"):
+    # Set a default max_body_size attribute if the installed version lacks it
     setattr(fastapi.applications.FastAPI, "max_body_size", None)
 
+# Core Imports
 import os
 from typing import Optional
 from pydantic_settings import BaseSettings
